@@ -1,0 +1,83 @@
+
+<div class="borrower-container">
+    <h2>Borrower Management</h2>
+  
+    <!-- Add Borrower Form -->
+    <div>
+      <h3>Add New Borrower</h3>
+      <form (ngSubmit)="addBorrower()" #addBorrowerForm="ngForm">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" [(ngModel)]="newBorrower.name" name="name" required />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" [(ngModel)]="newBorrower.email" name="email" required />
+        </div>
+        <div>
+          <label for="phone_number">Phone Number:</label>
+          <input type="text" id="phone_number" [(ngModel)]="newBorrower.phone_number" name="phone_number" required />
+        </div>
+        <div>
+          <label for="membership_date">Membership Date:</label>
+          <input type="date" id="membership_date" [(ngModel)]="newBorrower.membership_date" name="membership_date" required />
+        </div>
+        <button type="submit" [disabled]="addBorrowerForm.invalid">Add Borrower</button>
+      </form>
+    </div>
+  
+    <!-- List of Borrowers -->
+    <div>
+      <h3>Borrowers List</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Membership Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let borrower of borrowers">
+            <td>{{ borrower.id }}</td>
+            <td>{{ borrower.name }}</td>
+            <td>{{ borrower.email }}</td>
+            <td>{{ borrower.phone_number }}</td>
+            <td>{{ borrower.membership_date }}</td>
+            <td>
+              <button (click)="editBorrower(borrower)">Edit</button>
+              <button (click)="deleteBorrower(borrower.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Edit Borrower Form -->
+    <div *ngIf="editingBorrower">
+      <h3>Edit Borrower</h3>
+      <form (ngSubmit)="saveEditedBorrower()" #editBorrowerForm="ngForm">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" [(ngModel)]="editingBorrower.name" name="name" required />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" [(ngModel)]="editingBorrower.email" name="email" required />
+        </div>
+        <div>
+          <label for="phone_number">Phone Number:</label>
+          <input type="text" id="phone_number" [(ngModel)]="editingBorrower.phone_number" name="phone_number" required />
+        </div>
+        <div>
+          <label for="membership_date">Membership Date:</label>
+          <input type="date" id="membership_date" [(ngModel)]="editingBorrower.membership_date" name="membership_date" required />
+        </div>
+        <button type="submit" [disabled]="editBorrowerForm.invalid">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,97 @@
+<div class="author-container">
+    <div class="header">
+      <h2>Author Management</h2>
+      <!-- Search bar for filtering authors -->
+      <div class="search-bar">
+        <input
+          type="text"
+          placeholder="Search authors by name"
+          [(ngModel)]="searchTerm"
+        />
+      </div>
+    </div>
+  
+    <!-- Add Author Form -->
+    <div>
+      <h3>Add New Author</h3>
+      <form (ngSubmit)="addAuthor()" #addAuthorForm="ngForm">
+        <div>
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="newAuthor.name"
+            name="name"
+            required
+          />
+        </div>
+        <div>
+          <label for="date_of_birth">Date of Birth:</label>
+          <input
+            type="date"
+            id="date_of_birth"
+            [(ngModel)]="newAuthor.date_of_birth"
+            name="date_of_birth"
+            required
+          />
+        </div>
+        <div>
+          <label for="bio">Bio:</label>
+          <textarea id="bio" [(ngModel)]="newAuthor.bio" name="bio"></textarea>
+        </div>
+        <button type="submit" [disabled]="addAuthorForm.invalid">
+          Add Author
+        </button>
+      </form>
+    </div>
+  
+    <!-- List of Authors -->
+    <div>
+      <h3>Authors List</h3>
+      <div class="author-blocks">
+        <!-- Use the filtered authors list -->
+        <div class="author-card" *ngFor="let author of filteredAuthors">
+          <h4>{{ author.name }}</h4>
+          <p><strong>Date of Birth:</strong> {{ author.date_of_birth }}</p>
+          <p><strong>Bio:</strong> {{ author.bio }}</p>
+          <button (click)="editAuthor(author)">Edit</button>
+          <button (click)="deleteAuthor(author.author_id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Edit Author Form -->
+    <div *ngIf="editingAuthor">
+      <h3>Edit Author</h3>
+      <form (ngSubmit)="saveEditedAuthor()" #editAuthorForm="ngForm">
+        <div>
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="editingAuthor.name"
+            name="name"
+            required
+          />
+        </div>
+        <div>
+          <label for="date_of_birth">Date of Birth:</label>
+          <input
+            type="date"
+            id="date_of_birth"
+            [(ngModel)]="editingAuthor.date_of_birth"
+            name="date_of_birth"
+            required
+          />
+        </div>
+        <div>
+          <label for="bio">Bio:</label>
+          <textarea id="bio" [(ngModel)]="editingAuthor.bio" name="bio"></textarea>
+        </div>
+        <button type="submit" [disabled]="editAuthorForm.invalid">
+          Save Changes
+        </button>
+      </form>
+    </div>
+  </div>
+  

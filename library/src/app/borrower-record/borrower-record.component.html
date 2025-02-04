@@ -1,0 +1,98 @@
+<div class="borrow-record-container">
+    <h2>Borrow Record Management</h2>
+  
+    <!-- Add Borrow Record Form -->
+    <div>
+      <h3>Add New Borrow Record</h3>
+      <form (ngSubmit)="addBorrowRecord()" #addBorrowRecordForm="ngForm">
+        <div>
+          <label for="book">Book:</label>
+          <input type="text" id="book" [(ngModel)]="newBorrowRecord.book" name="book" required />
+        </div>
+        <div>
+          <label for="borrower">Borrower:</label>
+          <input type="text" id="borrower" [(ngModel)]="newBorrowRecord.borrower" name="borrower" required />
+        </div>
+        <div>
+          <label for="borrow_date">Borrow Date:</label>
+          <input type="date" id="borrow_date" [(ngModel)]="newBorrowRecord.borrow_date" name="borrow_date" required />
+        </div>
+        <div>
+          <label for="return_date">Return Date:</label>
+          <input type="date" id="return_date" [(ngModel)]="newBorrowRecord.return_date" name="return_date" />
+        </div>
+        <div>
+          <label for="status">Status:</label>
+          <select id="status" [(ngModel)]="newBorrowRecord.status" name="status" required>
+            <option value="borrowed">Borrowed</option>
+            <option value="returned">Returned</option>
+          </select>
+        </div>
+        <button type="submit" [disabled]="addBorrowRecordForm.invalid">Add Borrow Record</button>
+      </form>
+    </div>
+  
+    <!-- List of Borrow Records -->
+    <div>
+      <h3>Borrow Records List</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Book</th>
+            <th>Borrower</th>
+            <th>Borrow Date</th>
+            <th>Return Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of borrowRecords">
+            <td>{{ record.id }}</td>
+            <td>{{ record.book }}</td>
+            <td>{{ record.borrower }}</td>
+            <td>{{ record.borrow_date }}</td>
+            <td>{{ record.return_date }}</td>
+            <td>{{ record.status }}</td>
+            <td>
+              <button (click)="editBorrowRecord(record)">Edit</button>
+              <button (click)="deleteBorrowRecord(record.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Edit Borrow Record Form -->
+    <div *ngIf="editingBorrowRecord">
+      <h3>Edit Borrow Record</h3>
+      <form (ngSubmit)="saveEditedBorrowRecord()" #editBorrowRecordForm="ngForm">
+        <div>
+          <label for="book">Book:</label>
+          <input type="text" id="book" [(ngModel)]="editingBorrowRecord.book" name="book" required />
+        </div>
+        <div>
+          <label for="borrower">Borrower:</label>
+          <input type="text" id="borrower" [(ngModel)]="editingBorrowRecord.borrower" name="borrower" required />
+        </div>
+        <div>
+          <label for="borrow_date">Borrow Date:</label>
+          <input type="date" id="borrow_date" [(ngModel)]="editingBorrowRecord.borrow_date" name="borrow_date" required />
+        </div>
+        <div>
+          <label for="return_date">Return Date:</label>
+          <input type="date" id="return_date" [(ngModel)]="editingBorrowRecord.return_date" name="return_date" />
+        </div>
+        <div>
+          <label for="status">Status:</label>
+          <select id="status" [(ngModel)]="editingBorrowRecord.status" name="status" required>
+            <option value="borrowed">Borrowed</option>
+            <option value="returned">Returned</option>
+          </select>
+        </div>
+        <button type="submit" [disabled]="editBorrowRecordForm.invalid">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  
